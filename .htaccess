@@ -1,0 +1,46 @@
+# Redirect to a different URL
+RedirectPermanent /old-url https://example.com/new-url
+
+# Custom error pages
+ErrorDocument 404 /not-found.html
+
+# Password protect a directory
+<Directory /protected-directory>
+    AuthType Basic
+    AuthName "Restricted Area"
+    AuthUserFile /path/to/htpasswd
+    Require valid-user
+</Directory>
+
+# Enable mod_rewrite
+Options +FollowSymLinks
+RewriteEngine On
+
+# Customize the default document
+DefaultType text/html
+DefaultIndex index.html index.php
+
+# Set the character encoding
+AddDefaultCharset UTF-8
+
+# Disable caching
+ExpiresActive Off
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
+</IfModule>
+
+# Prevent hotlinking
+<FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+    Header set X-Frame-Option "DENY"
+    Header set Referer "none"
+</FilesMatch>
+
+# Restrict access to specific IP addresses
+<Limit GET POST>
+    Deny from all
+    Allow from 192.168.1.0/24
+</Limit>
+
+# Add more directives as needed...
